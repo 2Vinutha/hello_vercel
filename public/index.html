@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Deployed App</title>
+  <style>
+    :root { --blue:#0070f3; --text:#1f2937; --muted:#6b7280; }
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin:0; background:#f8fafc; }
+    header { padding:24px; text-align:center; background:white; box-shadow:0 1px 6px rgba(0,0,0,0.06); }
+    h1 { color:var(--blue); margin:0 0 8px; }
+    p.lead { color:var(--muted); margin:0; }
+    main { max-width:720px; margin:48px auto; background:white; padding:32px; border-radius:16px; box-shadow:0 10px 20px rgba(0,0,0,0.05); text-align:center; }
+    button { background:var(--blue); color:white; border:0; padding:12px 18px; border-radius:8px; cursor:pointer; font-size:16px; }
+    button:hover { filter:brightness(0.95); }
+    nav { margin-top:16px; }
+    nav a { margin:0 10px; color:var(--blue); text-decoration:none; }
+    #api-data { margin-top:18px; color:var(--text); word-break: break-word; }
+    footer { text-align:center; color:var(--muted); padding:24px; }
+    code { background:#f3f4f6; padding:2px 6px; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Deployed App!</h1>
+    <p class="lead">This app is running on Vercel (serverless).</p>
+  </header>
+  <main>
+    <button id="btn">Get API Message</button>
+    <div id="api-data">Click the button to call <code>/api</code></div>
+    <nav>
+      <a href="/about.html">About</a> •
+      <a href="/api">/api (raw)</a> •
+      <a href="/api/health">/api/health</a>
+    </nav>
+  </main>
+  <footer>© Internship Demo</footer>
+
+  <script>
+    document.getElementById('btn').addEventListener('click', async () => {
+      try {
+        const res = await fetch('/api');
+        const data = await res.json();
+        document.getElementById('api-data').innerText = `Message: ${data.message} | Time: ${data.timeUtc}`;
+      } catch {
+        document.getElementById('api-data').innerText = 'Failed to fetch /api';
+      }
+    });
+  </script>
+</body>
+</html>
